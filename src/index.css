@@ -13,10 +13,12 @@ body{
   justify-content: center;
   height: 100vh;
   color: white;
-  /* padding: 0 30px; */
+  overflow: hidden;
+
 }
 
 .container {
+  position: relative;
   width: 90vw;
   height: 90vh;
   background-color: rgba(17, 25, 40, 0.75);
@@ -25,6 +27,24 @@ body{
   border: 1px solid rgba(255, 255, 255, 0.125);
   display: flex;
   overflow: hidden;
+
+  .bars{
+    position: absolute;
+    background-color: rgba(17, 25, 40, 0.75);
+    left: 0;
+    top: 90px;
+    width: 60px;
+    height: 40px;
+    align-items: center;
+    border-radius: 0 20px 20px 0;
+    padding-left: 10px;
+
+    img{
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+    }
+  }
 }
 
 .loading{
@@ -32,4 +52,12 @@ body{
   font-size: 36px;
   border-radius: 10px;
   background-color: rgba(17, 25, 40, 0.9);
+}
+
+@media (max-width: 600px)  {
+ .container{
+  width: 100vw;
+  height: 100vh;
+  border-radius: 0;
+ }
 }

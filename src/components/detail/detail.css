@@ -1,6 +1,30 @@
 .detail{
-    flex: 1;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 350px;
+    background-color: red;
+    border-radius: 10px;
+    background-color: rgb(33, 49, 78);
+    transition: all 0.5s;
+     
+    .xmark{
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 5px;
+        background-color: #1a73e8;
+        border-radius: 3px;
+        cursor: pointer;
 
+        img{
+            width: 25px;
+            height: 25px;
+        }
+    }
 
     .user{
         padding: 30px 20px;
@@ -120,4 +144,12 @@
   background-color: rgba(17, 25, 40, 0.5); 
   border-radius: 10px; 
   border: 2px solid transparent; 
+}
+
+
+/* Small devices (landscape phones) */
+@media (max-width: 600px)  {
+  .detail{
+    width: 100%;
+  }
 }

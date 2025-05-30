@@ -3,10 +3,12 @@ import { useChatStore } from "../../lib/ChatStore";
 import { auth, db } from "../../lib/firebase";
 import { useUserStore } from "../../lib/UserStore";
 import "./detail.css";
+import { useOpenDetailStore } from "../../lib/openDetailStore";
 const Detail = () => {
   const { chatId, user, isCurrentUserBlocked, isReceiverBlocked, changeBlock } =
     useChatStore();
   const { currentUser } = useUserStore();
+  const { closeDetail, detail } = useOpenDetailStore();
 
   const HandleBlock = async () => {
     if (!user) return;
@@ -24,7 +26,10 @@ const Detail = () => {
   };
 
   return (
-    <div className="detail">
+    <div className="detail" style={{ top: detail ? "10px" : "-100%" }}>
+      <div className="xmark" onClick={() => closeDetail()}>
+        <img src="/xmark.svg" alt="" />
+      </div>
       <div className="user">
         <img src={user?.avatar || "./avatar.png"} alt="" />
         <h2>{user?.username}</h2>
@@ -37,54 +42,24 @@ const Detail = () => {
             <img src="./arrowUp.png" alt="" />
           </div>
         </div>
-        <div className="option">
+        {/* <div className="option">
           <div className="title">
             <span>Chat Settings</span>
             <img src="./arrowUp.png" alt="" />
           </div>
-        </div>
-        <div className="option">
+        </div> */}
+        {/* <div className="option">
           <div className="title">
             <span>Privacy & help</span>
             <img src="./arrowUp.png" alt="" />
           </div>
-        </div>
+        </div> */}
         <div className="option">
           <div className="title">
             <span>Shared photos</span>
             <img src="./arrowDown.png" alt="" />
           </div>
           <div className="photos">
-            <div className="photoItem">
-              <div className="photoDetail">
-                <img
-                  src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                  alt=""
-                />
-                <span>photo_2024_2.png</span>
-              </div>
-              <img src="./download.png" alt="" className="icon" />
-            </div>
-            <div className="photoItem">
-              <div className="photoDetail">
-                <img
-                  src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                  alt=""
-                />
-                <span>photo_2024_2.png</span>
-              </div>
-              <img src="./download.png" alt="" className="icon" />
-            </div>
-            <div className="photoItem">
-              <div className="photoDetail">
-                <img
-                  src="https://images.pexels.com/photos/7381200/pexels-photo-7381200.jpeg?auto=compress&cs=tinysrgb&w=800&lazy=load"
-                  alt=""
-                />
-                <span>photo_2024_2.png</span>
-              </div>
-              <img src="./download.png" alt="" className="icon" />
-            </div>
             <div className="photoItem">
               <div className="photoDetail">
                 <img

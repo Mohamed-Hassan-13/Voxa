@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Chat from "./components/chat/Chat";
 import Detail from "./components/detail/Detail";
 import List from "./components/list/List";
@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./lib/firebase";
 import { useUserStore } from "./lib/UserStore";
 import { useChatStore } from "./lib/ChatStore";
+import { useOpenChatlistStore } from "./lib/openChatlistStore";
 
 const App = () => {
   const { currentUser, isLoading, fetchUserInfo } = useUserStore();

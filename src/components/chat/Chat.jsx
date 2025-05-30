@@ -12,6 +12,8 @@ import { db } from "../../lib/firebase";
 import { useChatStore } from "../../lib/ChatStore";
 import { useUserStore } from "../../lib/UserStore";
 import { cloudName, uploadPreset } from "../../Cloudinary/Cloudinary";
+import { useOpenDetailStore } from "../../lib/openDetailStore";
+import HandleCreatedAt from "../../helpers/HandleCreatedAt";
 
 const Chat = () => {
   const [chat, setChat] = useState();
@@ -22,13 +24,26 @@ const Chat = () => {
     url: "",
   });
 
+  const [windowWidth, setWindowWidth] = useState(0);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  }, []);
+
   const { chatId, user, isCurrentUserBlocked, isReceiverBlocked } =
     useChatStore();
   const { currentUser } = useUserStore();
+  const { openDetail } = useOpenDetailStore();
+
+  const HandelOpenDetail = () => {
+    openDetail();
+  };
 
   // Handle avatar upload
   const HandleImg = (e) => {
-    // uploadImageToCloudinary(e.target.files[0]);
     if (e.target.files[0]) {
       setImg({
         file: e.target.files[0],
@@ -56,7 +71,7 @@ const Chat = () => {
   const HandleEmoji = (e) => {
     setText((prev) => prev + e.emoji);
     setOpenEmoji(false);
-    document.querySelector(".input").focus();
+    document.querySelector(".input-send").focus();
   };
 
   const HandleSend = async () => {
@@ -125,7 +140,11 @@ const Chat = () => {
   return (
     <div className="chat">
       <div className="top">
-        <div className="user">
+        <div
+          className="user"
+          onClick={HandelOpenDetail}
+          style={{ cursor: "pointer" }}
+        >
           <img src={user?.avatar || "./avatar.png"} alt="" />
           <div className="texts">
             <span>{user?.username}</span>
@@ -149,7 +168,7 @@ const Chat = () => {
             <div className="texts">
               {message.img && <img src={message.img} alt="" />}
               <p>{message.text}</p>
-              {/* <span>{message.createdAt}</span> */}
+              <span>{HandleCreatedAt(message?.createdAt)}</span>
             </div>
           </div>
         ))}
@@ -173,8 +192,12 @@ const Chat = () => {
             style={{ display: "none" }}
             onChange={HandleImg}
           />
-          <img src="camera.png" alt="" />
-          <img src="mic.png" alt="" />
+          {windowWidth > 600 && (
+            <>
+              <img src="camera.png" alt="" />
+              <img src="mic.png" alt="" />
+            </>
+          )}
         </div>
         <input
           type="text"
@@ -185,7 +208,7 @@ const Chat = () => {
               : "type a message..."
           }
           onChange={(e) => setText(e.target.value)}
-          className="input"
+          className="input-send"
           disabled={isCurrentUserBlocked || isReceiverBlocked}
         />
         <div className="emoji">
