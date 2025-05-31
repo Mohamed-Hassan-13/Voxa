@@ -26,7 +26,7 @@ const Detail = () => {
   };
 
   return (
-    <div className="detail" style={{ top: detail ? "10px" : "-470px" }}>
+    <div className="detail" style={{ top: detail ? "10px" : "-500px" }}>
       <div className="xmark" onClick={() => closeDetail()}>
         <img src="/xmark.svg" alt="" />
       </div>

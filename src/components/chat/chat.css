@@ -5,6 +5,7 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    height: 100%;
 
     .top{
         display: flex;
@@ -56,7 +57,7 @@
     }
     .center{
         padding: 20px;
-        /* flex: 1; */
+        flex: 1;
         overflow: auto;
         display: flex;
         flex-direction: column;
