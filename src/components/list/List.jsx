@@ -33,7 +33,7 @@ const List = () => {
     <div
       className="list"
       style={{
-        left: isChatlistOpen ? "0" : "-332px",
+        left: isChatlistOpen ? "0" : "-335px",
         position: chatId && windowWidth < 960 ? "absolute" : "static",
         backgroundColor:
           chatId && windowWidth < 960
