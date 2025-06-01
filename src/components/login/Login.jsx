@@ -10,6 +10,8 @@ import { cloudName, uploadPreset } from "../../Cloudinary/Cloudinary";
 const Login = () => {
   const [image, setimage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [haveAcount, setHaveAcount] = useState(false);
+
   // State for avatar
   const [avatar, setAvatar] = useState({
     file: null,
@@ -97,38 +99,68 @@ const Login = () => {
 
   return (
     <div className="login">
-      <div className="item">
-        <h2>Welcome Back,</h2>
-        <form onSubmit={HandleLogin}>
-          <input type="email" placeholder="Email" name="email" />
-          <input type="password" placeholder="Password" name="password" />
-          <button type="submit" disabled={loading}>
-            {loading ? "Loading" : "Login"}
-          </button>
-        </form>
-      </div>
-      <div className="separator"></div>
-      <div className="item">
-        <h2>Create an Account</h2>
-        <form onSubmit={HandleRegister}>
-          <label htmlFor="file">
-            <img src={avatar?.url || "./avatar.png"} alt="" />
-            Upload an image
-          </label>
-          <input
-            type="file"
-            id="file"
-            style={{ display: "none" }}
-            onChange={HandleAvatar}
-          />
-          <input type="text" placeholder="Username" name="username" />
-          <input type="email" placeholder="Email" name="email" />
-          <input type="password" placeholder="Password" name="password" />
-          <button type="submit" disabled={loading}>
-            {loading ? "Loading" : "Sign Up"}
-          </button>
-        </form>
-      </div>
+      {!haveAcount && (
+        <div className="item">
+          <h2>Welcome Back,</h2>
+          <form onSubmit={HandleLogin}>
+            <input type="email" placeholder="Email" name="email" />
+            <input type="password" placeholder="Password" name="password" />
+            <button type="submit" disabled={loading}>
+              {loading ? "Loading" : "Login"}
+            </button>
+          </form>
+          <div>
+            Don't have an account?{" "}
+            <span
+              style={{
+                color: "blue",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={() => setHaveAcount(true)}
+            >
+              Sign up
+            </span>
+          </div>
+        </div>
+      )}
+      {/* <div className="separator"></div> */}
+      {haveAcount && (
+        <div className="item">
+          <h2>Create an Account</h2>
+          <form onSubmit={HandleRegister}>
+            <label htmlFor="file">
+              <img src={avatar?.url || "./avatar.png"} alt="" />
+              Upload an image
+            </label>
+            <input
+              type="file"
+              id="file"
+              style={{ display: "none" }}
+              onChange={HandleAvatar}
+            />
+            <input type="text" placeholder="Username" name="username" />
+            <input type="email" placeholder="Email" name="email" />
+            <input type="password" placeholder="Password" name="password" />
+            <button type="submit" disabled={loading}>
+              {loading ? "Loading" : "Sign Up"}
+            </button>
+          </form>
+          <div>
+            Already have an account?
+            <span
+              style={{
+                color: "blue",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={() => setHaveAcount(false)}
+            >
+              Sign in
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
